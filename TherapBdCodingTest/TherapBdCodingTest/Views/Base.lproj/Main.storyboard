@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,13 +14,16 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="M3t-M6-zrh" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="1um-He-F62">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="0.84827155309007662" colorSpace="custom" customColorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="pV2-Xw-b96" kind="relationship" relationship="viewControllers" id="3Ro-ew-dC5"/>
                         <segue destination="Gv1-dC-CKM" kind="relationship" relationship="viewControllers" id="kq3-YR-reF"/>
                         <segue destination="HhA-Ja-Gqo" kind="relationship" relationship="viewControllers" id="2VX-H4-HD4"/>
+                        <segue destination="QUK-NQ-NoA" kind="relationship" relationship="viewControllers" id="sMA-gb-bsd"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="o9c-Zd-ScF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -29,19 +33,67 @@
         <!--All-->
         <scene sceneID="2oS-R7-wUz">
             <objects>
-                <tableViewController id="pV2-Xw-b96" customClass="GithubRepoListVC" customModule="TherapBdCodingTest" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="pV2-Xw-b96" customClass="AllReposVC" customModule="TherapBdCodingTest" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="mca-xn-52X">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="EC3-QK-bJo">
-                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RepoCell" rowHeight="96" id="EC3-QK-bJo" customClass="RepoCell" customModule="TherapBdCodingTest" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="96"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EC3-QK-bJo" id="A4j-Qv-xnO">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="96"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="person.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="WMk-9J-MlR">
+                                            <rect key="frame" x="8" y="21" width="50" height="50"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Charts" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xqt-1i-vhW">
+                                            <rect key="frame" x="73" y="11" width="289" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Beautiful charts for IOS/tvOS/OSX! The Apple side of the crossplatform MPAndroidChart" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MBV-Vm-e2P">
+                                            <rect key="frame" x="73" y="40" width="289" height="45"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Ku-9w-7KW">
+                                            <rect key="frame" x="377" y="36" width="20" height="20"/>
+                                            <state key="normal" image="star" catalog="system">
+                                                <color key="titleColor" red="0.0" green="0.5568627451" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
+                                        </button>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="MBV-Vm-e2P" firstAttribute="height" secondItem="A4j-Qv-xnO" secondAttribute="height" multiplier="0.46875" id="3FG-Pm-c2k"/>
+                                        <constraint firstItem="3Ku-9w-7KW" firstAttribute="centerY" secondItem="WMk-9J-MlR" secondAttribute="centerY" id="65t-pX-sO3"/>
+                                        <constraint firstItem="WMk-9J-MlR" firstAttribute="width" secondItem="A4j-Qv-xnO" secondAttribute="width" multiplier="0.120773" id="FYi-Vd-6FH"/>
+                                        <constraint firstAttribute="bottom" secondItem="MBV-Vm-e2P" secondAttribute="bottom" constant="11" id="GsN-VD-Kax"/>
+                                        <constraint firstItem="xqt-1i-vhW" firstAttribute="leading" secondItem="WMk-9J-MlR" secondAttribute="trailing" constant="15" id="JW2-pb-2xY"/>
+                                        <constraint firstItem="MBV-Vm-e2P" firstAttribute="width" secondItem="A4j-Qv-xnO" secondAttribute="width" multiplier="0.698068" id="MQ5-gz-RGA"/>
+                                        <constraint firstItem="3Ku-9w-7KW" firstAttribute="width" secondItem="A4j-Qv-xnO" secondAttribute="width" multiplier="0.0483092" id="N5b-aW-gV7"/>
+                                        <constraint firstItem="MBV-Vm-e2P" firstAttribute="trailing" secondItem="xqt-1i-vhW" secondAttribute="trailing" id="R8y-oK-1dy"/>
+                                        <constraint firstItem="WMk-9J-MlR" firstAttribute="height" secondItem="A4j-Qv-xnO" secondAttribute="height" multiplier="0.552083" id="WiG-bh-Ddl"/>
+                                        <constraint firstItem="3Ku-9w-7KW" firstAttribute="leading" secondItem="MBV-Vm-e2P" secondAttribute="trailing" constant="15" id="Z3N-Ec-J7Z"/>
+                                        <constraint firstItem="MBV-Vm-e2P" firstAttribute="leading" secondItem="xqt-1i-vhW" secondAttribute="leading" id="de6-bj-TVa"/>
+                                        <constraint firstItem="WMk-9J-MlR" firstAttribute="leading" secondItem="A4j-Qv-xnO" secondAttribute="leading" constant="8" id="eCW-jU-cmC"/>
+                                        <constraint firstAttribute="trailing" secondItem="3Ku-9w-7KW" secondAttribute="trailing" constant="17" id="jIh-I5-iaG"/>
+                                        <constraint firstItem="WMk-9J-MlR" firstAttribute="top" secondItem="A4j-Qv-xnO" secondAttribute="top" constant="19.5" id="lO0-OS-FX3"/>
+                                        <constraint firstItem="xqt-1i-vhW" firstAttribute="top" secondItem="A4j-Qv-xnO" secondAttribute="top" constant="11" id="lzj-H7-FmU"/>
+                                        <constraint firstItem="3Ku-9w-7KW" firstAttribute="height" secondItem="A4j-Qv-xnO" secondAttribute="height" multiplier="0.208333" id="mcB-hv-7T3"/>
+                                        <constraint firstItem="xqt-1i-vhW" firstAttribute="height" secondItem="A4j-Qv-xnO" secondAttribute="height" multiplier="0.21875" id="s4w-7v-z15"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="favouriteButton" destination="3Ku-9w-7KW" id="p8g-TV-LX7"/>
+                                    <outlet property="repoDescriptionLabel" destination="MBV-Vm-e2P" id="yad-5n-bwL"/>
+                                    <outlet property="repoTitleLabel" destination="xqt-1i-vhW" id="fnC-C5-the"/>
+                                    <outlet property="userImage" destination="WMk-9J-MlR" id="V3i-fy-Psj"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -53,7 +105,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eW6-eW-Vdb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-687" y="92"/>
+            <point key="canvasLocation" x="-688.40579710144937" y="91.741071428571431"/>
         </scene>
         <!--Favourite-->
         <scene sceneID="ID3-bM-6K5">
@@ -113,10 +165,47 @@
             </objects>
             <point key="canvasLocation" x="884" y="92"/>
         </scene>
+        <!--Repository Details-->
+        <scene sceneID="CRH-yZ-2xX">
+            <objects>
+                <viewController storyboardIdentifier="RepositoryDetails" title="Repository Details" id="zaS-tl-UGi" customClass="ReposityDetailsVC" customModule="TherapBdCodingTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jdm-5A-sL9">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="44L-Bw-ly3"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Repository Details" id="RR6-fg-xNG"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v1M-U7-etb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2513.04347826087" y="91.741071428571431"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="eu9-XJ-KVS">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="QUK-NQ-NoA" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="Qvc-2d-gRr"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="nKG-uP-Qct">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="zaS-tl-UGi" kind="relationship" relationship="rootViewController" id="AUc-cr-9po"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5DE-eU-Tdv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1602.8985507246377" y="91.741071428571431"/>
+        </scene>
     </scenes>
     <resources>
         <image name="gift.circle" catalog="system" width="128" height="121"/>
         <image name="note.text" catalog="system" width="128" height="106"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
+        <image name="star" catalog="system" width="128" height="116"/>
         <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

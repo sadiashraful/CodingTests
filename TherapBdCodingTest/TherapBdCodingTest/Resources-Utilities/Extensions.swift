@@ -12,19 +12,6 @@ extension UIColor {
     static func rgb(red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {
         return UIColor.init(red: red/255, green: green/255, blue: blue/255, alpha: 1.0)
     }
-    
-    struct ColorFactory {
-        //Background
-        static let appThemeColor = UIColor.rgb(red: 252, green: 104, blue: 8)
-        
-    }
-}
-
-extension UIFont {
-    struct FontFactory {
-        static let appTextFont = UIFont(name: "AvenirNext-DemiBold", size: 40)
-        
-    }
 }
 
 extension UIView {
