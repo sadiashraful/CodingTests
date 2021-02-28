@@ -7,18 +7,21 @@
 
 import UIKit
 
+protocol SelectionDelegate {
+    func didTapTableCell(image: UIImage, repoTitle: String, repoDescription: String)
+}
+
 class AllReposVC: UITableViewController {
     
-
-
+    var selectionDelegate: SelectionDelegate!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
 
         let url = "https://api.github.com/search/repositories?q=language:Swift&sort=stars&order=desc"
         getData(from: url)
-        
-        
+
     }
 
     // MARK: - Table view data source
@@ -39,7 +42,7 @@ class AllReposVC: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let newViewController = storyBoard.instantiateViewController(withIdentifier: "RepositoryDetails") as! ReposityDetailsVC
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "RepositoryDetails") as! RepositoryDetailsVC
         self.present(newViewController, animated: true, completion: nil)
 
         
