@@ -20,41 +20,15 @@ enum APIError: Error {
 class AllReposVC: UITableViewController {
     
     var selectionDelegate: SelectionDelegate!
-    let url = "https://api.github.com/search/repositories?q=language:Swift&sort=stars&order=desc"
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         
-        getData(from: url)
-//        getRepoList { [weak self] result in
-//            switch result {
-//            case .failure(let error):
-//                print(error)
-//            case .success(let items): break
-//
-//            }
-//        }
-
+        getData(from: API.url)
     }
     
-//    func getRepoList(completion: @escaping(Result<[ItemDetail], APIError>) -> Void) {
-//        let dataTask = URLSession.shared.dataTask(with: URL(string: url)!) { data, response, error in
-//            guard let jsonData = data else {
-//                completion(.failure(.noDataAvailable))
-//                return
-//            }
-//            do {
-//                let decoder = JSONDecoder()
-//                let itemResponse = try decoder.decode(APIResponse.self, from: jsonData)
-//                let itemDetails = itemResponse.response.items
-//                completion(.success(itemDetails))
-//            } catch {
-//                completion(.failure(.canNotProcessData))
-//            }
-//        }
-//    }
-
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return generateDummyData().count
@@ -101,7 +75,7 @@ extension AllReposVC {
             }
 
             guard let json = result else { return }
-            print("JSON: \(json)")
+            print("JSON: \(json.items)")
         }
         
         task.resume()
