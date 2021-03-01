@@ -7,22 +7,53 @@
 
 import UIKit
 
+
 protocol SelectionDelegate {
     func didTapTableCell(image: UIImage, repoTitle: String, repoDescription: String)
+}
+
+enum APIError: Error {
+    case noDataAvailable
+    case canNotProcessData
 }
 
 class AllReposVC: UITableViewController {
     
     var selectionDelegate: SelectionDelegate!
+    let url = "https://api.github.com/search/repositories?q=language:Swift&sort=stars&order=desc"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
 
-        let url = "https://api.github.com/search/repositories?q=language:Swift&sort=stars&order=desc"
+        
         getData(from: url)
+//        getRepoList { [weak self] result in
+//            switch result {
+//            case .failure(let error):
+//                print(error)
+//            case .success(let items): break
+//
+//            }
+//        }
 
     }
+    
+//    func getRepoList(completion: @escaping(Result<[ItemDetail], APIError>) -> Void) {
+//        let dataTask = URLSession.shared.dataTask(with: URL(string: url)!) { data, response, error in
+//            guard let jsonData = data else {
+//                completion(.failure(.noDataAvailable))
+//                return
+//            }
+//            do {
+//                let decoder = JSONDecoder()
+//                let itemResponse = try decoder.decode(APIResponse.self, from: jsonData)
+//                let itemDetails = itemResponse.response.items
+//                completion(.success(itemDetails))
+//            } catch {
+//                completion(.failure(.canNotProcessData))
+//            }
+//        }
+//    }
 
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -40,16 +71,10 @@ class AllReposVC: UITableViewController {
     
     // MARK: - Table View Delegate Methods
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let newViewController = storyBoard.instantiateViewController(withIdentifier: "RepositoryDetails") as! RepositoryDetailsVC
         self.present(newViewController, animated: true, completion: nil)
-
-        
     }
-    
-    
-    
 }
 
 extension AllReposVC {
@@ -60,15 +85,31 @@ extension AllReposVC {
             var result: Response?
             do {
                 result = try JSONDecoder().decode(Response.self, from: data)
+            } catch let DecodingError.dataCorrupted(context) {
+                print(context)
+            } catch let DecodingError.keyNotFound(key, context) {
+                print("Key '\(key)' not found:", context.debugDescription)
+                print("codingPath:", context.codingPath)
+            } catch let DecodingError.valueNotFound(value, context) {
+                print("Value '\(value)' not found:", context.debugDescription)
+                print("codingPath:", context.codingPath)
+            } catch let DecodingError.typeMismatch(type, context)  {
+                print("Type '\(type)' mismatch:", context.debugDescription)
+                print("codingPath:", context.codingPath)
             } catch {
-                print("failed to convert \(error.localizedDescription)")
+                print("error: ", error)
             }
+
             guard let json = result else { return }
-            print(json.items.name)
-        }.resume()
+            print("JSON: \(json)")
+        }
         
+        task.resume()
+
     }
     
+  
+
     func generateDummyData() -> [Repo] {
         let repos = [
             Repo(title: "Charts", description: "Beautiful charts for iOS/tvOS/OSX!The Apple side of the crossplatform MPAndroidChart"),

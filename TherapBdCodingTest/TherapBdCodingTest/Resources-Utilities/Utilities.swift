@@ -13,7 +13,7 @@ struct API {
 }
 
 struct Response: Codable {
-    var items: Item
+    var items: [Item]
 }
 
 struct Item: Codable {
@@ -25,3 +25,23 @@ struct Item: Codable {
 struct Owner: Codable {
     var avatar_url: String
 }
+
+
+
+//struct APIResponse: Codable {
+//    var response: Items
+//}
+//
+//struct Items: Codable {
+//    var items: [ItemDetail]
+//}
+//
+//struct ItemDetail: Codable {
+//    var name: String
+//    var owner: Owner
+//    var description: String
+//}
+//
+//struct Owner: Codable {
+//    var avatar_url: String
+//}

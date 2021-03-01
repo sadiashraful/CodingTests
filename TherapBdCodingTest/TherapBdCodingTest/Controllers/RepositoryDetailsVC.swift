@@ -48,8 +48,6 @@ extension RepositoryDetailsVC: UITableViewDataSource {
         
         return cell
     }
-    
-    
 }
 
 extension RepositoryDetailsVC: UITableViewDelegate {
