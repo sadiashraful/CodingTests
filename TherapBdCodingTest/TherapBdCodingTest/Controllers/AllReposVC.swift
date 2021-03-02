@@ -8,53 +8,32 @@
 import UIKit
 
 
-protocol SelectionDelegate {
-    func didTapTableCell(image: UIImage, repoTitle: String, repoDescription: String)
-}
 
-enum APIError: Error {
-    case noDataAvailable
-    case canNotProcessData
-}
+//protocol SelectionDelegate {
+//    func didTapTableCell(image: UIImage, repoTitle: String, repoDescription: String)
+//}
+//
+//enum APIError: Error {
+//    case noDataAvailable
+//    case canNotProcessData
+//}
 
 class AllReposVC: UITableViewController {
     
-    var selectionDelegate: SelectionDelegate!
-    
+//    var selectionDelegate: SelectionDelegate!
+    var dataFromAPI: [Item] = []
+    var dataFromAPICount: Int = 30
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         
         getData(from: API.url)
-    }
-    
-    // MARK: - Table view data source
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return generateDummyData().count
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "RepoCell") as! RepoCell
-        let repo = generateDummyData()[indexPath.row]
-        cell.repoTitleLabel.text = repo.title
-        cell.repoDescriptionLabel.text = repo.description
         
-        return cell
     }
-    
-    // MARK: - Table View Delegate Methods
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let newViewController = storyBoard.instantiateViewController(withIdentifier: "RepositoryDetails") as! RepositoryDetailsVC
-        self.present(newViewController, animated: true, completion: nil)
-    }
-}
-
-extension AllReposVC {
     
     private func getData(from url: String) {
-        let task = URLSession.shared.dataTask(with: URL(string: url)!) { (data, response, error) in
+        let task = URLSession.shared.dataTask(with: URL(string: url)!) {(data, response, error) in
             guard let data = data, error == nil else { return }
             var result: Response?
             do {
@@ -74,13 +53,55 @@ extension AllReposVC {
                 print("error: ", error)
             }
 
-            guard let json = result else { return }
-            print("JSON: \(json.items)")
+            guard let json = result else {
+                return
+            }
+            print("DE: Items Count: \(json.items.count)")
+            self.dataFromAPICount = json.items.count
+            print("dataFromAPICount: \(self.dataFromAPICount)")
+            
+            for item in json.items {
+                print("DE: Item Names: \(item.name)")
+                self.dataFromAPI.append(item)
+                
+            }
+            
+            print("Data from Api: \(self.dataFromAPI)")
+            
         }
         
         task.resume()
 
     }
+    
+    func updateDataFromAPI(dataFromAPI: [Item]) {
+        self.dataFromAPI = dataFromAPI
+    }
+    
+    // MARK: - Table view data source
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return generateDummyData().count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RepoCell") as! RepoCell
+        let repo = generateDummyData()[indexPath.row]
+        cell.repoTitleLabel.text = repo.title
+        cell.repoDescriptionLabel.text = repo.description
+        return cell
+    }
+    
+    // MARK: - Table View Delegate Methods
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "RepositoryDetails") as! RepositoryDetailsVC
+        self.present(newViewController, animated: true, completion: nil)
+    }
+}
+
+extension AllReposVC {
+    
+
     
   
 
